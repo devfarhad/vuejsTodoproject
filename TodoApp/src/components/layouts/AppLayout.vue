@@ -1,12 +1,17 @@
 <script setup>
 import loginForm from "../login/loginForm.vue";
+import dashboard from "../dashboard.vue"
+import { useManageReport } from "../../stores/manageTodoAppStore.js";
+const manageTodoStore = useManageReport();
+
 
 defineProps({});
 </script>
 
 <template>
   <div class="bg-gray-50 app-container">
-    <loginForm class="w-full h-full" />
+    <loginForm v-if="!manageTodoStore.isLogin" class="w-full h-full" />
+    <dashboard v-else></dashboard>
   </div>
 </template>
 
