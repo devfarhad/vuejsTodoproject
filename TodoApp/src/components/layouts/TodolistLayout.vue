@@ -1,13 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import { useManageReport } from "../../stores/manageTodoAppStore.js";
+import todoModalLayout from "../layouts/todoModalLayout.vue";
 const manageTodoStore = useManageReport();
 
 defineProps({});
 </script>
 <template>
+  <todoModalLayout ref="popover" />
   <div class="flex justify-center items-center min-h-screen bg-[#cbd7e3]">
-    <div class="h-auto w-96 bg-white rounded-lg p-4">
+    <div class="h-auto w-1/2 bg-white rounded-lg p-4">
       <div
         class="mt-3 text-sm text-[#8ea6c8] flex justify-between items-center"
       >
@@ -60,34 +62,31 @@ defineProps({});
         <li :key="todo.id" class="mt-4" id="1">
           <div class="flex gap-2">
             <div
-              class="w-9/12 h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3"
+              class="w-full h-12 bg-[#e0ebff] rounded-[7px] flex justify-start items-center px-3"
             >
-              <span
-                id="check1"
-                class="w-7 h-7 bg-white rounded-full border border-white transition-all cursor-pointer hover:border-[#36d344] flex justify-center items-center"
-                onclick="checked(1)"
-                ><i class="text-white fa fa-check"></i
-              ></span>
               <strike
                 id="strike1"
                 class="strike_none text-sm ml-4 text-[#5b7a9d] font-semibold"
                 >{{ todo.name }}</strike
               >
             </div>
+						<span
+              class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center"
+              >{{ todo.description }}</span>
             <span
               class="w-1/4 h-12 bg-[#e0ebff] rounded-[7px] flex justify-center text-sm text-[#5b7a9d] font-semibold items-center"
               >{{ todo.deadline }}</span
             >
           </div>
         </li>
-        <button
-          class="bg-blue-500 w-full mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-        >
-          Add your Todo
-        </button>
       </ul>
+      <button
+        class="bg-blue-500 w-full mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+        @click="manageTodoStore.isAddTodoModalOpen"
+      >
+        Add your Todo
+      </button>
     </div>
   </div>
 </template>
-
 <style scoped></style>
